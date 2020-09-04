@@ -39,37 +39,37 @@ What is covered ?
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
-- Python 3.7.8 or above
 # Clean and Build
 - Java
-    - ``` cd spring-cloud-session-1-microservices-introduction ``` 
+    - ``` cd spring-cloud-session-2-microservices-introduction ``` 
     - ``` mvn clean install ```
-- Python
-    - ``` cd \spring-cloud-session-1-microservices-introduction\insurance-api ```
-    - ```  pipenv install ``` 
- 
- **Note: Maven is build and dependency tool for Java where as Pipenv is dependency tool for Python**
  
 # Running components
+- Registry: ``` java -jar .\registry\target\registry-0.0.1-SNAPSHOT.jar ```
 - Employee API: ``` java -jar .\employee-api\target\employee-api-0.0.1-SNAPSHOT.jar ```
 - Payroll API: ``` java -jar .\payroll-api\target\payroll-api-0.0.1-SNAPSHOT.jar ```
-- Insurance API: 
-    - ``` cd insurance-api ```
-    - ```  pipenv run insurance_api.py ```
-- Gateway: ```java -jar .\gateway\target\gateway-0.0.1-SNAPSHOT.jar ``` 
+- Gateway: ``` java -jar .\gateway\target\gateway-0.0.1-SNAPSHOT.jar ``` 
 
 # Using curl to test environment
 **Note I am running CURL on windows, if you have any issue. Please use postman client, its collection is available 
 at spring-cloud-session-1-microservices-introduction.postman_collection.json**
-- Access employee api directly: ``` curl -s -L  http://localhost:9000/employee/100 ```
-- Access payroll api directly: ``` curl -s -L  http://localhost:9010/payroll/100 ```
-- Access insurance api directly: ``` curl -s -L  http://localhost:9020/insurance/100 ```
 - Access employee api via gateway: ``` curl -s -L  http://localhost:8080/employee/100 ```
 - Access payroll api via gateway: ``` curl -s -L  http://localhost:8080/payroll/100 ```
-- Access insurance api via gateway: ``` curl -s -L  http://localhost:8080/insurance/100 ```
+**Note: Users will not access microservices (employee-api,payroll-api,insurance-api) directly. This will always access 
+via gateway, Also we never know which ports they bind. They get random port numbers**
 
-**Note: Users will not access microservices (employee-api,payroll-api,insurance-api) directly. This will always access via gateway**
 # Code
+Registry(Service Registry) is a Spring Boot application that uses Eureka Server. Snippet of **RegistryApplication**
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class RegistryApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RegistryApplication.class, args);
+    }
+}
+```
 Employee API is a simple spring boot based rest-api. Snippet of **EmployeeController**
 ```java
  // Initialize database
@@ -86,19 +86,31 @@ Employee API is a simple spring boot based rest-api. Snippet of **EmployeeContro
         return dataBase.get(employeeId);
     }
 ```
-Insurance API is a simple rest-api based on  Python Flask .  Snippet of **insurance_api.py**
-```python
-database = {100: {'id': 100, 'insurance': 10000}, 101: {'id': 101, 'insurance': 15000}}
+Employee API users Eureka Client , which discovers and registers with Server. Snippet of **EmployeeApiApplication**
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class EmployeeApiApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(EmployeeApiApplication.class, args);
+    }
 
-class InsuranceController(Resource):
-    def get(self, id):
-        return database.get(id)
-
-
-api.add_resource(InsuranceController, '/insurance/<int:id>')
+}
 ```
-Gateway is a Spring boot application which uses Spring Cloud Load Balancer for Client Side Load balancing. 
+Gateway is a Spring boot application which uses Spring Cloud Load Balancer for Client Side Load balancing and Eureka Client to
+discover healthy microservices. Snippet of **GatewayApplication**
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class GatewayApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(GatewayApplication.class, args);
+    }
+
+}
+```
 It is mainly configuration driven  **application.yml**  
 ```yaml
 cloud:
@@ -119,8 +131,8 @@ cloud:
 ```
 
 # Next Steps
-- Enhance existing application to run employee-api and payroll-api on dynamic ports.
-- Ideally we will not care on which ports employee-api and payroll-api is running because we don't access the api directly, We always use gateway.
+- How micoservice communicate with each other,Inter microservice communication
+
 # References
 - https://howtodoinjava.com/microservices/microservices-definition-principles-benefits/
 - https://en.wikipedia.org/wiki/Microservices
