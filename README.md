@@ -4,7 +4,7 @@ is very useful when you want to dynamically scale applications. Here microservic
 services are exposed  via gateway. User will access the services via gateway. All the services are developed using Java. 
 The microservices run on random port and registers their service endpoint with service registry application.
 Gateway routes the requests to micorservices based on the information available in registry.  
-**If you are not able to understand the first paragraph this is perfectly normal,Please watch my video to understan it better**
+**If you are not able to understand the first paragraph this is perfectly normal,Please watch my video to understand it better**
 
 Overview
 - Run employee-api service on 9000. Where it takes employee id and returns employee name.
@@ -87,7 +87,8 @@ Employee API is a simple spring boot based rest-api. Snippet of **EmployeeContro
         return dataBase.get(employeeId);
     }
 ```
-Employee API users Eureka Client , which discovers and registers with Server. Snippet of **EmployeeApiApplication**
+Employee API users Eureka Client , which discovers and registers with Server. Snippet of **EmployeeApiApplication**. It
+binds to random port and registers with Eureka Server using name,dynamic id and random value.
 ```java
 @SpringBootApplication
 @EnableEurekaClient
@@ -98,6 +99,14 @@ public class EmployeeApiApplication {
     }
 
 }
+```
+Snippet of employee api**application.yml**
+```yaml
+server:
+  port: ${PORT:0}
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 ```
 Gateway is a Spring boot application which uses Spring Cloud Load Balancer for Client Side Load balancing and Eureka Client to
 discover healthy microservices. Snippet of **GatewayApplication**
