@@ -128,20 +128,19 @@ public class GatewayApplication {
 It is mainly configuration driven  **application.yml**  
 ```yaml
 cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
     gateway:
       routes:
         - id: employee-api
-          uri: http://localhost:9000
+          uri: lb://EMPLOYEE-API
           predicates:
             - Path=/employee/**
         - id: payroll-api
-          uri: http://localhost:9010
+          uri: lb://PAYROLL-API
           predicates:
             - Path=/payroll/**
-        - id: insurance-api
-          uri: http://localhost:9020
-          predicates:
-            - Path=/insurance/**
 ```
 
 # Next Steps
