@@ -64,7 +64,7 @@ Run multiple instances of employee-api,payroll-api to handle more volume of requ
 - New Payroll API instance: ``` java -jar .\payroll-api\target\payroll-api-0.0.1-SNAPSHOT.jar ```
 
 # Code
-Registry(Service Registry) is a Spring Boot application that uses Eureka Server. Snippet of **RegistryApplication**
+*Registry(Service Registry)* is a Spring Boot application that uses Eureka Server. Snippet of **RegistryApplication**
 ```java
 @SpringBootApplication
 @EnableEurekaServer
@@ -75,7 +75,7 @@ public class RegistryApplication {
     }
 }
 ```
-Employee API is a simple spring boot based rest-api. Snippet of **EmployeeController**
+*Employee API* is a simple spring boot based rest-api. Snippet of **EmployeeController**
 ```java
  // Initialize database
     private static final Map<Integer, Employee> dataBase = new HashMap<>();
@@ -91,7 +91,7 @@ Employee API is a simple spring boot based rest-api. Snippet of **EmployeeContro
         return dataBase.get(employeeId);
     }
 ```
-Employee API users Eureka Client , which discovers and registers with Server. Snippet of **EmployeeApiApplication**. It
+*Employee API* users Eureka Client , which discovers and registers with Server. Snippet of **EmployeeApiApplication**. It
 binds to random port and registers with Eureka Server using name,dynamic id and random value.
 ```java
 @SpringBootApplication
@@ -104,7 +104,7 @@ public class EmployeeApiApplication {
 
 }
 ```
-Snippet of employee api**application.yml**
+Snippet of employee api **application.yml**
 ```yaml
 server:
   port: ${PORT:0}
@@ -112,7 +112,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 ```
-Gateway is a Spring boot application which uses Spring Cloud Load Balancer for Client Side Load balancing and Eureka Client to
+*Gateway* is a Spring boot application which uses Spring Cloud Load Balancer for Client Side Load balancing and Eureka Client to
 discover healthy microservices. Snippet of **GatewayApplication**
 ```java
 @SpringBootApplication
