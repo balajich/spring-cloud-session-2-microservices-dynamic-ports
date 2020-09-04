@@ -1,22 +1,36 @@
-# Spring Cloud Session1 Microservices Introduction
-In this tutorial we are going build three microservices and expose their service via gateway. User will
-access the services via gateway. Two services (employee-api,payroll-api) is developed in Java and insurance-api is 
-developed in Python. All the services are simple http REST apis.
+# Spring Cloud Session 2 Microservices Dynamic ports
+In this tutorial we are going build two microservices(employee-api,payroll-api), registry  and expose their services
+via gateway. User will access the services via gateway. All the services are developed using Java. The microservices 
+runs on random port and registers their service endpoint with service registry application. Gateway routes the requests
+to micorservices based on the information available in registry.  
+
 
 Overview
 - Run employee-api service on 9000. Where it takes employee id and returns employee name.
 - Run payroll-api service on 9010. Where it takes employee id and returns employee salary.
-- Run insurance-api service on 9020. Where it takes employee id and returns employee sum insured.
-- Run Gateway service on 8080 and reverse proxy requests to all the services (employee-api,payroll-api,insurance-api)
-- Spring Cloud load balancer (Client side load balancing) component in Spring Cloud Gateway acts as reverse proxy.
+- Run registry service on 8761. 
+- Run Gateway service on 8080 and reverse proxy requests to all the services (employee-api,payroll-api)
+- All the microservices (employee-api,payroll-api,gateway) when they startup they register their service endpoint (rest api url)
+ with registry
+- Gateway Spring Cloud load balancer (Client side load balancing) component in Spring Cloud Gateway acts as reverse proxy.
+It reads a registry for microservice endpoints and configures routes. 
+
+Important Notes
+- Netflix Eureka Server plays a role of Registry. Registry is a spring boot application with Eureka Server as dependency.
+- Netflix Eureka Client is present in all the micro services (employee-api,payroll-api,gateway) and they discover Eureka
+server and register their availability with server.
+- Generally Netflix Ribbon Component is used as Client Side load balancer, but it is deprecated project. We will be using
+Spring Cloud Load balaner in gateway 
+
  
 What is covered ?
 - Develop restapi microservices in Java using springboot 
-- Develop restapi microservices in Python using flask
-- Develop ApiGateway micorservice in Java using Spring Cloud
+- Develop registry using Eureka Server
+- Develop ApiGateway microservice using Spring Cloud Load Balancer.
+- Microservices can be dynamically discovered.
 
 # Source Code 
-``` git clone https://github.com/balajich/spring-cloud-session-1-microservices-introduction.git ```
+``` git clone https://github.com/balajich/spring-cloud-session-2-microservices-dynamic-ports.git ``` 
 # Video
 [![Spring Cloud LoadBalancer](https://img.youtube.com/vi/8HQR6GdtI9o/0.jpg)](https://www.youtube.com/watch?v=8HQR6GdtI9o)
 - https://youtu.be/8HQR6GdtI9o
