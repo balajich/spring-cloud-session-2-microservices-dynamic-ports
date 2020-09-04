@@ -58,6 +58,10 @@ at spring-cloud-session-1-microservices-introduction.postman_collection.json**
 - Access payroll api via gateway: ``` curl -s -L  http://localhost:8080/payroll/100 ```
 **Note: Users will not access microservices (employee-api,payroll-api,insurance-api) directly. This will always access 
 via gateway, Also we never know which ports they bind. They get random port numbers**
+# Scale up application
+Run multiple instances of employee-api,payroll-api to handle more volume of requests.
+- New Employee API instance: ``` java -jar .\employee-api\target\employee-api-0.0.1-SNAPSHOT.jar ```
+- New Payroll API instance: ``` java -jar .\payroll-api\target\payroll-api-0.0.1-SNAPSHOT.jar ```
 
 # Code
 Registry(Service Registry) is a Spring Boot application that uses Eureka Server. Snippet of **RegistryApplication**
