@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "4327defe-9e5a-42f5-97f2-3001b8640d72",
+		"name": "spring-cloud-microservices-hello-world-dynamic-ports",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1-Get employee details - Gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/employee/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-Get payroll details of employee -  Gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/payroll/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payroll",
+						"100"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
