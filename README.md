@@ -1,9 +1,10 @@
 # Spring Cloud Session 2 Microservices Dynamic ports
-In this tutorial we are going build two microservices(employee-api,payroll-api), registry  and expose their services
-via gateway. User will access the services via gateway. All the services are developed using Java. The microservices 
-runs on random port and registers their service endpoint with service registry application. Gateway routes the requests
-to micorservices based on the information available in registry.  
-
+In this tutorial we are going build micorservice which bind to random port and discover each other using registry. This 
+is very useful when you want to dynamically scale applications. Here microservices(employee-api,payroll-api), registry 
+services are exposed  via gateway. User will access the services via gateway. All the services are developed using Java. 
+The microservices run on random port and registers their service endpoint with service registry application.
+Gateway routes the requests to micorservices based on the information available in registry.  
+**If you are not able to understand the first paragraph this is perfectly normal,Please watch my video to understan it better**
 
 Overview
 - Run employee-api service on 9000. Where it takes employee id and returns employee name.
