@@ -7,8 +7,8 @@ Gateway routes the requests to micorservices based on the information available 
 **If you are not able to understand the first paragraph this is perfectly normal,Please watch my video to understand it better**
 
 Overview
-- Run employee-api service on 9000. Where it takes employee id and returns employee name.
-- Run payroll-api service on 9010. Where it takes employee id and returns employee salary.
+- Run employee-api service on a random port. Where it takes employee id and returns employee name.
+- Run payroll-api service on a random port. Where it takes employee id and returns employee salary.
 - Run registry service on 8761. 
 - Run Gateway service on 8080 and reverse proxy requests to all the services (employee-api,payroll-api)
 - All the microservices (employee-api,payroll-api,gateway) when they startup they register their service endpoint (rest api url)
