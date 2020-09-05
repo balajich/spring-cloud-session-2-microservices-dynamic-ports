@@ -147,7 +147,7 @@ cloud:
 - How micoservice communicate with each other,Inter microservice communication
 
 # References
-- https://howtodoinjava.com/microservices/microservices-definition-principles-benefits/
+- https://spring.io/projects/spring-cloud
 - https://en.wikipedia.org/wiki/Microservices
 # Next Tutorial
-https://github.com/balajich/spring-cloud-microservices-hello-world-dynamic-ports
+https://github.com/balajich/spring-cloud-session-3-inter-microservice-communication
