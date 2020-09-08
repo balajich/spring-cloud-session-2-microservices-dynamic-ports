@@ -150,4 +150,4 @@ cloud:
 - https://spring.io/projects/spring-cloud
 - https://en.wikipedia.org/wiki/Microservices
 # Next Tutorial
-https://github.com/balajich/spring-cloud-session-3-inter-microservice-communication
+- https://github.com/balajich/spring-cloud-session-3-inter-microservice-communication-sync
